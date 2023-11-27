@@ -7,8 +7,8 @@ using namespace std;
 map<char, int> LettersFromWord(const string& word) {
    map<char, int> letters;
     
-    for (auto i = 0; i < word.size(); ++i) {
-        letters.insert({word[i], 0});
+    for (const char& i : word) {
+        ++letters[i];
     }
     
     return letters;
@@ -16,21 +16,12 @@ map<char, int> LettersFromWord(const string& word) {
 
 bool CheckAnagram(const string& s1, const string& s2) {
     // напишите решение тут
-    map<char, int> ms1;
-    map<char, int> ms2;
-    for (int a = 0; a < LettersFromWord(s1).size(); ++a) {
-        ++ms1[LettersFromWord(s1)[a]];
-    }
     
-    for (int a = 0; a < LettersFromWord(s2).size(); ++a) {
-        ++ms2[LettersFromWord(s2)[a]];
-    }
-    
-    if (ms1 == ms2) {
+    if (LettersFromWord(s1) == LettersFromWord(s2)) {
         return true;
     }
     
-    return false;
+ return false;   
 }
 
 // напишем небольшую функцию для проверки
