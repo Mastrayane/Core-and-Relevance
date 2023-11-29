@@ -107,11 +107,10 @@ vector<pair<int, int>> FindDocuments(const vector<pair<int, vector<string>>>& do
 }
 
 // БАЗА ДАННЫХ
-void AddDocument(const vector<pair<int, vector<string>>>& documents, const set<string>& stop_words,  int document_id, const string& document) {
+void AddDocument(vector<pair<int, vector<string>>>& documents, const set<string>& stop_words,  int document_id, const string& document) {
                  
-    pair<int, vector<string>> words;
-    words = {document_id, SplitIntoWordsNoStop(document, stop_words)};
-    documents.push_back(words);
+    
+    documents.push_back({document_id, SplitIntoWordsNoStop(document, stop_words)});
 }
 
 
