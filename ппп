@@ -93,13 +93,13 @@ int MatchDocument(const pair<int, vector<string>>& document, const set<string>& 
 // Стоп-слова исключаются из поиска
 vector<pair<int, int>> FindDocuments(const vector<pair<int, vector<string>>>& documents, const set<string>& stop_words, const string& query) {
     vector<pair<int, int>> matched_documents;
-    
+        
     const set<string> query_words = ParseQuery(query, stop_words);
     
     int document_id = 0;
     for (const auto& document : documents) {
         if (MatchDocument(document, query_words) > 0) {
-            matched_documents.insert({document_id, MatchDocument(document, query_words)});
+            matched_documents.push_back({document_id, MatchDocument(document, query_words)});
         }
         ++document_id;
     }
@@ -109,8 +109,9 @@ vector<pair<int, int>> FindDocuments(const vector<pair<int, vector<string>>>& do
 // БАЗА ДАННЫХ
 void AddDocument(const vector<pair<int, vector<string>>>& documents, const set<string>& stop_words,  int document_id, const string& document) {
                  
-    const pair<int, vector<string>> words = {document_id, SplitIntoWordsNoStop(document, stop_words)};
-    documents[words];
+    pair<int, vector<string>> words;
+    words = {document_id, SplitIntoWordsNoStop(document, stop_words)};
+    documents.push_back(words);
 }
 
 
