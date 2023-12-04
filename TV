@@ -10,16 +10,20 @@ using namespace std;
 /* Допишите класс в соответствии с требованиями задания*/
 class TV {
 public:
+    
+
+        
 	// Включает телевизор.
-	void TurnOn(bool is_turned_on) {
+	void TurnOn() {
 		// Напишите код этого метода
-		is_turned_on_ = !is_turned_on;
+		is_turned_on_ = true;
+     
 	}
 
 	// Выключает телевизор
-	void TurnOff(bool is_turned_on) {
+	void TurnOff() {
 		// Напишите код этого метода
-		is_turned_on_ = is_turned_on;
+		is_turned_on_ = false;
 	}
 
 	// Возвращает true, если телевизор включен и false, если телевизор выключен
