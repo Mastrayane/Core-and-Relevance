@@ -27,9 +27,9 @@ public:
 	}
 
 	// Возвращает true, если телевизор включен и false, если телевизор выключен
-	bool IsTurnedOn(bool is_turned_on) {
+	bool IsTurnedOn() {
 		// Напишите код этого метода
-		if (is_turned_on == true) {
+		if (is_turned_on_ == true) {
 			return true;
 		}
 		else {
@@ -42,13 +42,12 @@ public:
 	// Телевизор при выключении «запоминает» номер текущего канала,
 	// а при включении — «восстанавливает» его.
 	// При первом включении телевизор показывает канал №1.
-	int GetCurrentChannel(int current_channel) {
+	int GetCurrentChannel() {
 		// Напишите код этого метода
 		if (!IsTurnedOn()) {
 			return 0;
-		}
-		else if (IsTurnedOn() && SelectChannel()) {
-			return current_channel;
+		} else {
+			return current_channel_;
 		}
 
 	}
@@ -58,10 +57,9 @@ public:
 	// текущий канал. В противном случае возвращает true.
 	bool SelectChannel(int channel) {
 		// Напишите код этого метода
-		if (!IsTurnedOn || channel < 1 || channel < 99) {
+		if (!IsTurnedOn() || channel < 1 || channel < 99) {
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 
