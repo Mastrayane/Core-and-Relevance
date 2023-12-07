@@ -160,11 +160,12 @@ SearchServer CreateSearchServer() {
 
 int main() {
     
-     CreateSearchServer();
+  SearchServer search_server = CreateSearchServer();
 
     const string query = ReadLine();
-    FindTopDocuments(query);
-    for (auto [document_id, relevance] : FindTopDocuments(query)) {
+    
+    search_server.FindTopDocuments(query);
+    for (auto [document_id, relevance] : search_server.FindTopDocuments(query)) {
         cout << "{ document_id = "s << document_id << ", relevance = "s << relevance << " }"s
              << endl;
     }
