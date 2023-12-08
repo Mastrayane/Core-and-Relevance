@@ -27,7 +27,7 @@ sort(S.begin(), S.end(), [](const string left, const string right) {
           [](char& left, char& right) {
               return tolower(static_cast<unsigned char>(left)) < tolower(static_cast<unsigned char>(right));
           }
-        )
+        );
      }
     );
     
