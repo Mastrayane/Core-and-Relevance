@@ -21,7 +21,10 @@ int main() {
     
    
     
-    sort(S.begin(), S.end(), lexicographical_compare(S1.begin(), S1.end(), S2.begin(), S2.end(), [](char& left, char& right) {
+    sort(S.begin(), S.end(), lexicographical_compare(
+S1.begin(), S1.end(), 
+S2.begin(), S2.end(), 
+[](char& left, char& right) {
         return tolower(static_cast<unsigned char>(left)) < tolower(static_cast<unsigned char>(right));
 }
         );
