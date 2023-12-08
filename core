@@ -20,13 +20,15 @@ int main() {
     }
     
     
-    sort(S.begin(), S.end(), [](const string left, const string right) {
+sort(S.begin(), S.end(), [](const string left, const string right) {
         return lexicographical_compare(
-        left.begin(), left.end(),
-	    right.begin(), right.end(),
-        [](char& left, char& right) {
-            return tolower(static_cast<unsigned char>(left)) < tolower(static_cast<unsigned char>(right));
-        }
-    )});
+          left.begin(), left.end(),
+	      right.begin(), right.end(),
+          [](char& left, char& right) {
+              return tolower(static_cast<unsigned char>(left)) < tolower(static_cast<unsigned char>(right));
+          }
+        )
+     }
+    );
     
 }
