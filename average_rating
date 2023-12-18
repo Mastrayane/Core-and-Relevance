@@ -71,6 +71,23 @@ struct Document {
 	int rating;
 };
 
+// ВЫЧИСЛЯЕТ СРЕДНИЙ РЕЙТИНГ ДОКУМЕНТА
+int ComputeAverageRating(const vector<int>& ratings) {
+	int number_of_ratings = ratings.size();
+	int sum = 0;
+	if (ratings.size() > 0) {
+
+		for (int i : ratings) {
+			sum += i;
+		}
+		return sum / number_of_ratings;
+	}
+	else {
+		return 0;
+	}
+}
+
+
 // КЛАСС
 class SearchServer {
 	// ПУБЛИЧНАЯ ЧАСТЬ
@@ -84,7 +101,7 @@ public:
 	}
 
 	// БАЗА ДАННЫХ ДОКУМЕНТОВ
-	void AddDocument(int document_id, const string& document) {
+	void AddDocument(int document_id, const string& document, vector<int> rating) {
 		/* заносим документ в "количество документов" */
 		++document_count_;
 
@@ -97,14 +114,13 @@ public:
 			word_to_document_freqs_[word][document_id] += inv_word_count;
 		}
 
-	}
-
-	void AverageRating(int document_id, vector<int> ratings) {
 		/* Вводим оценки и вычисляем средний рейтинг*/
-		int average_rating = ComputeAverageRating(ratings);
+		int average_rating = ComputeAverageRating(rating);
 		//вычислите средний рейтинг оценок и сохраняем в поле document_ratings_
 		document_ratings_.insert({ document_id, average_rating });
 	}
+
+
 
 	//НАХОДИТ ПОПУЛЯРНЫЕ ДОКУМЕНТЫ
 	vector<Document> FindTopDocuments(const string& raw_query) const {
@@ -212,21 +228,7 @@ private:
 		return log(document_count_ * 1.0 / word_to_document_freqs_.at(word).size());
 	}
 
-	// ВЫЧИСЛЯЕТ СРЕДНИЙ РЕЙТИНГ ДОКУМЕНТА
-	int ComputeAverageRating(const vector<int>& ratings) const {
-		int number_of_ratings = ratings.size();
-		int sum = 0;
-		if (ratings.size() > 0) {
 
-			for (int i : ratings) {
-				sum += i;
-			}
-			return sum / number_of_ratings;
-		}
-		else {
-			return 0;
-		}
-	}
 
 	/* ПРИНИМАЕТ ПАРУ ИЗ ВЕКТОРОВ (плюс- и минус- слов) поисковго запроса
 	и возвращает вектором триад их id и вычесленную общую релевантность (TF-IDF)
@@ -286,8 +288,7 @@ SearchServer CreateSearchServer() {
 
 	const int document_count = ReadLineWithNumber();
 	for (int document_id = 0; document_id < document_count; ++document_id) {
-		search_server.AddDocument(document_id, ReadLine());
-		search_server.AverageRating(document_id, ReadLineNumberRatings());
+		search_server.AddDocument(document_id, ReadLine(), ReadLineNumberRatings());
 	}
 
 	return search_server;
@@ -298,7 +299,7 @@ int main() {
 	const SearchServer search_server = CreateSearchServer();
 
 	const string query = ReadLine();
-	for (auto [document_id, relevance, rating] : search_server.FindTopDocuments(query)) {
+	for (auto const& [document_id, relevance, rating] : search_server.FindTopDocuments(query)) {
 		cout << "{ document_id = "s << document_id << ", " << "relevance = "s << relevance << ", " << " rating = "s << rating << " }"s << endl;
 	}
 
