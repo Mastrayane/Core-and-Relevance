@@ -26,17 +26,6 @@ public:
 		return denominator_;
 	}
 
-	ostream& operator<<(ostream& output, Rational& rat) {
-		output << rat.Numerator() << "/" << rat.Denominator();
-		return output;
-	}
-
-
-	istream& operator>>(istream& is, Rational& rat) {
-		char b;
-		is >> rat.numerator_ >> b >> rat.denominator_;
-		return is;
-
 
 private:
 	void Normalize() {
@@ -51,10 +40,23 @@ private:
 
 	int numerator_ = 0;
 	int denominator_ = 1;
-	};
+};
 
-
+ostream& operator<<(ostream& output, Rational& rat) {
+	output << rat.Numerator() << "/" << rat.Denominator();
+	return output;
 }
+
+
+istream& operator>>(istream& is, Rational& rat) {
+    int numerator, denominator;
+    char b;
+    is>> numerator >> b >> denominator;
+    rat = Rational{numerator, denominator};
+    return is;
+}
+
+
 
 int main() {
 
