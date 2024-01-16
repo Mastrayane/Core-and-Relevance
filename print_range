@@ -1,0 +1,7 @@
+template <typename it>
+void PrintRange(it begin, it end){
+    for(auto x = begin; begin!=end; ++x, ++begin){
+        cout << *x << " ";
+    }
+    cout << endl;
+}
