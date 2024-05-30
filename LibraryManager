@@ -1,0 +1,94 @@
+#include <iostream>
+#include <vector>
+#include <iomanip>
+#include <numeric>
+
+using namespace std;
+
+class Library {
+public:
+	Library() :
+		book_(1001, 0),
+		users_(100001, 0),
+		reading_users_(0)
+	{}
+
+	void LibraryManager() {
+		int number_requests;
+		cin >> number_requests;
+
+		for (int i = 0; i < number_requests; ++i) {
+			string command;
+			cin >> command;
+
+			if (command == "READ") {
+				ExecutedCommandRead();
+			}
+			else if (command == "CHEER") {
+				ExecutedCommandCheer();
+			}
+		}
+	}
+
+
+private:
+	vector<int> book_;
+	vector<int> users_;
+	int reading_users_;
+
+	void ExecutedCommandRead() {
+		int user;
+		int page;
+		std::cin >> user >> page;
+
+		if (users_[user] == 0) {
+			reading_users_++;
+		}
+
+		if (users_[user] < page) {
+
+			if (users_[user] != 0) {
+				book_[users_[user]]--;
+			}
+
+			users_[user] = page; 
+			book_[page]++;
+		}
+	}
+
+	void ExecutedCommandCheer() {
+		int user;
+		cin >> user;
+
+		if (users_[user] == 0) {
+			cout << 0 << endl;
+			return;
+		}
+
+		if (reading_users_ == 1) {
+			cout << 1 << endl;
+		}
+		else {
+
+			int read_less = accumulate(book_.begin(), (book_.begin() + users_[user]), 0);
+
+			if (read_less == 0) {
+				cout << 0 << endl;
+			}
+			else {
+				double ratio = (1 / static_cast<double>(reading_users_ - 1)) * static_cast<double>(read_less);
+
+				// cout << fixed << setprecision(6) << ratio << endl;
+				cout << ratio << endl;
+			}
+		}
+	}
+
+};
+
+int main() {
+
+	Library library;
+	library.LibraryManager();
+
+}
